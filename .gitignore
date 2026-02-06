@@ -10,6 +10,7 @@ dist/
 
 # Editor
 .cursor/
+.claude/
 
 # OS
 .DS_Store
