@@ -110,7 +110,8 @@ export function parseQuery(query: string): ParsedQuery {
       minutes: 0,
       sourceTimezone: "",
       sourceLabel: "",
-      error: "Invalid time format. Use HH, HH:MM, or HH.MM, e.g., 11 CET, 7:22, or 7.22pm",
+      error:
+        "Invalid time format. Use HH, HH:MM, or HH.MM, e.g., 11 CET, 7:22, or 7.22pm",
     };
   }
 

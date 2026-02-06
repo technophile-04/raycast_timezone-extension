@@ -48,7 +48,9 @@ export default function ConvertTime(props: LaunchProps) {
       <SearchList searchText={searchText} onSearchTextChange={setSearchText}>
         <List.EmptyView
           title="Convert Time Across Timezones"
-          description={"Try typing:\n• 7:22 CET\n• 3pm PST to EST\n• 14:00 Tokyo\n• 11 IST"}
+          description={
+            "Try typing:\n• 7:22 CET\n• 3pm PST to EST\n• 14:00 Tokyo\n• 11 IST"
+          }
           icon={Icon.Clock}
         />
       </SearchList>
@@ -81,7 +83,9 @@ export default function ConvertTime(props: LaunchProps) {
       tz.label || getDisambiguationLabel(tz.ianaId, parsed.sourceLabel),
     ),
   );
-  const allConversionsStr = results.map((r) => `${r.formattedTime} ${r.abbreviation}`).join(" = ");
+  const allConversionsStr = results
+    .map((r) => `${r.formattedTime} ${r.abbreviation}`)
+    .join(" = ");
 
   return (
     <SearchList searchText={searchText} onSearchTextChange={setSearchText}>
@@ -96,15 +100,32 @@ export default function ConvertTime(props: LaunchProps) {
             title={`${result.formattedTime} ${result.abbreviation}`}
             subtitle={result.label || formatIanaId(result.ianaId)}
             accessories={[
-              ...(result.isLocal ? [{ tag: { value: "Local", color: Color.Green } }] : []),
-              ...(result.dayOffset !== 0
-                ? [{ tag: { value: result.dayOffset > 0 ? "+1 day" : "-1 day", color: Color.Orange } }]
+              ...(result.isLocal
+                ? [{ tag: { value: "Local", color: Color.Green } }]
                 : []),
-              { text: { value: `UTC${result.utcOffset}`, color: Color.SecondaryText } },
+              ...(result.dayOffset !== 0
+                ? [
+                    {
+                      tag: {
+                        value: result.dayOffset > 0 ? "+1 day" : "-1 day",
+                        color: Color.Orange,
+                      },
+                    },
+                  ]
+                : []),
+              {
+                text: {
+                  value: `UTC${result.utcOffset}`,
+                  color: Color.SecondaryText,
+                },
+              },
             ]}
             actions={
               <ActionPanel>
-                <Action.CopyToClipboard title="Copy Time" content={`${result.formattedTime} ${result.abbreviation}`} />
+                <Action.CopyToClipboard
+                  title="Copy Time"
+                  content={`${result.formattedTime} ${result.abbreviation}`}
+                />
                 <Action.CopyToClipboard
                   title="Copy Time Only"
                   content={result.formattedTime}
@@ -182,7 +203,9 @@ function ReverseConversionView({
   };
 
   const targets = getTargetTimezones(reverseParsed, favoriteTimezones);
-  const results = targets.map((t) => convertTime(hours, minutes, sourceIanaId, t.ianaId, t.label));
+  const results = targets.map((t) =>
+    convertTime(hours, minutes, sourceIanaId, t.ianaId, t.label),
+  );
 
   return (
     <List navigationTitle={`${sourceLabel} → Conversions`}>
@@ -197,15 +220,32 @@ function ReverseConversionView({
             title={`${result.formattedTime} ${result.abbreviation}`}
             subtitle={result.label || formatIanaId(result.ianaId)}
             accessories={[
-              ...(result.isLocal ? [{ tag: { value: "Local", color: Color.Green } }] : []),
-              ...(result.dayOffset !== 0
-                ? [{ tag: { value: result.dayOffset > 0 ? "+1 day" : "-1 day", color: Color.Orange } }]
+              ...(result.isLocal
+                ? [{ tag: { value: "Local", color: Color.Green } }]
                 : []),
-              { text: { value: `UTC${result.utcOffset}`, color: Color.SecondaryText } },
+              ...(result.dayOffset !== 0
+                ? [
+                    {
+                      tag: {
+                        value: result.dayOffset > 0 ? "+1 day" : "-1 day",
+                        color: Color.Orange,
+                      },
+                    },
+                  ]
+                : []),
+              {
+                text: {
+                  value: `UTC${result.utcOffset}`,
+                  color: Color.SecondaryText,
+                },
+              },
             ]}
             actions={
               <ActionPanel>
-                <Action.CopyToClipboard title="Copy Time" content={`${result.formattedTime} ${result.abbreviation}`} />
+                <Action.CopyToClipboard
+                  title="Copy Time"
+                  content={`${result.formattedTime} ${result.abbreviation}`}
+                />
                 <Action.CopyToClipboard
                   title="Copy Time Only"
                   content={result.formattedTime}
