@@ -33,7 +33,7 @@ export default function ConvertTime(props: LaunchProps) {
     const invalid = getInvalidFavorites(favoriteTimezones);
     if (invalid.length > 0) {
       showToast({
-        style: Toast.Style.Warning,
+        style: Toast.Style.Failure,
         title: "Skipping unknown timezone(s)",
         message: invalid.join(", "),
       });
