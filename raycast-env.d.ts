@@ -22,9 +22,6 @@ declare namespace Preferences {
 
 declare namespace Arguments {
   /** Arguments passed to the `convert-time` command */
-  export type ConvertTime = {
-  /** 7:22 CET or 7:22 CET to PST */
-  "query": string
-}
+  export type ConvertTime = {}
 }
 

@@ -26,6 +26,8 @@ export interface ConvertedTime {
   dayOffset: number;
   isLocal: boolean;
   label?: string;
+  hours: number;
+  minutes: number;
 }
 
 // ── Timezone Resolution ────────────────────────────────────────
@@ -302,12 +304,19 @@ function getAbbreviation(date: Date, ianaId: string): string {
 /**
  * Format a time using the system locale (respects 12h/24h preference).
  */
-function formatTime(date: Date, ianaId: string): string {
+function formatTimeInTz(date: Date, ianaId: string): string {
   return new Intl.DateTimeFormat(undefined, {
     timeZone: ianaId,
     hour: "numeric",
     minute: "2-digit",
   }).format(date);
+}
+
+/**
+ * Format numeric hours and minutes as "H:MM" (24h).
+ */
+export function formatTime(hours: number, minutes: number): string {
+  return `${hours}:${String(minutes).padStart(2, "0")}`;
 }
 
 /**
@@ -359,11 +368,13 @@ export function convertTime(
   return {
     ianaId: targetIana,
     abbreviation: getAbbreviation(actualUtcDate, targetIana),
-    formattedTime: formatTime(actualUtcDate, targetIana),
+    formattedTime: formatTimeInTz(actualUtcDate, targetIana),
     utcOffset: formatUtcOffset(targetOffset),
     dayOffset,
     isLocal: targetIana === localIana,
     label: disambiguationLabel,
+    hours: targetParts.hour,
+    minutes: targetParts.minute,
   };
 }
 
