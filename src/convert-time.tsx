@@ -48,9 +48,7 @@ export default function ConvertTime(props: LaunchProps) {
       <SearchList searchText={searchText} onSearchTextChange={setSearchText}>
         <List.EmptyView
           title="Convert Time Across Timezones"
-          description={
-            "Try typing:\n• 7:22 CET\n• 3pm PST to EST\n• 14:00 Tokyo\n• 11 IST"
-          }
+          description={"Try typing:\n• 7:22 CET\n• 3pm PST to EST\n• 14:00 Tokyo\n• 11 IST"}
           icon={Icon.Clock}
         />
       </SearchList>
@@ -83,9 +81,7 @@ export default function ConvertTime(props: LaunchProps) {
       tz.label || getDisambiguationLabel(tz.ianaId, parsed.sourceLabel),
     ),
   );
-  const allConversionsStr = results
-    .map((r) => `${r.formattedTime} ${r.abbreviation}`)
-    .join(" = ");
+  const allConversionsStr = results.map((r) => `${r.formattedTime} ${r.abbreviation}`).join(" = ");
 
   return (
     <SearchList searchText={searchText} onSearchTextChange={setSearchText}>
@@ -100,9 +96,7 @@ export default function ConvertTime(props: LaunchProps) {
             title={`${result.formattedTime} ${result.abbreviation}`}
             subtitle={result.label || formatIanaId(result.ianaId)}
             accessories={[
-              ...(result.isLocal
-                ? [{ tag: { value: "Local", color: Color.Green } }]
-                : []),
+              ...(result.isLocal ? [{ tag: { value: "Local", color: Color.Green } }] : []),
               ...(result.dayOffset !== 0
                 ? [
                     {
@@ -122,10 +116,7 @@ export default function ConvertTime(props: LaunchProps) {
             ]}
             actions={
               <ActionPanel>
-                <Action.CopyToClipboard
-                  title="Copy Time"
-                  content={`${result.formattedTime} ${result.abbreviation}`}
-                />
+                <Action.CopyToClipboard title="Copy Time" content={`${result.formattedTime} ${result.abbreviation}`} />
                 <Action.CopyToClipboard
                   title="Copy Time Only"
                   content={result.formattedTime}
@@ -203,9 +194,7 @@ function ReverseConversionView({
   };
 
   const targets = getTargetTimezones(reverseParsed, favoriteTimezones);
-  const results = targets.map((t) =>
-    convertTime(hours, minutes, sourceIanaId, t.ianaId, t.label),
-  );
+  const results = targets.map((t) => convertTime(hours, minutes, sourceIanaId, t.ianaId, t.label));
 
   return (
     <List navigationTitle={`${sourceLabel} → Conversions`}>
@@ -220,9 +209,7 @@ function ReverseConversionView({
             title={`${result.formattedTime} ${result.abbreviation}`}
             subtitle={result.label || formatIanaId(result.ianaId)}
             accessories={[
-              ...(result.isLocal
-                ? [{ tag: { value: "Local", color: Color.Green } }]
-                : []),
+              ...(result.isLocal ? [{ tag: { value: "Local", color: Color.Green } }] : []),
               ...(result.dayOffset !== 0
                 ? [
                     {
@@ -242,10 +229,7 @@ function ReverseConversionView({
             ]}
             actions={
               <ActionPanel>
-                <Action.CopyToClipboard
-                  title="Copy Time"
-                  content={`${result.formattedTime} ${result.abbreviation}`}
-                />
+                <Action.CopyToClipboard title="Copy Time" content={`${result.formattedTime} ${result.abbreviation}`} />
                 <Action.CopyToClipboard
                   title="Copy Time Only"
                   content={result.formattedTime}

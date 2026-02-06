@@ -1,10 +1,4 @@
-import {
-  ABBREVIATION_MAP,
-  CITY_MAP,
-  SHORT_FORM_MAP,
-  TIMEZONE_FULL_NAMES,
-  isValidIana,
-} from "./timezone-data";
+import { ABBREVIATION_MAP, CITY_MAP, SHORT_FORM_MAP, TIMEZONE_FULL_NAMES, isValidIana } from "./timezone-data";
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -73,10 +67,7 @@ export function resolveTimezone(input: string): string[] {
 /**
  * Get a disambiguation label for a timezone when it comes from an ambiguous abbreviation.
  */
-export function getDisambiguationLabel(
-  ianaId: string,
-  sourceLabel: string,
-): string | undefined {
+export function getDisambiguationLabel(ianaId: string, sourceLabel: string): string | undefined {
   const lower = sourceLabel.toLowerCase();
   const matches = ABBREVIATION_MAP[lower];
   if (!matches || matches.length <= 1) return undefined;
@@ -110,8 +101,7 @@ export function parseQuery(query: string): ParsedQuery {
       minutes: 0,
       sourceTimezone: "",
       sourceLabel: "",
-      error:
-        "Invalid time format. Use HH, HH:MM, or HH.MM, e.g., 11 CET, 7:22, or 7.22pm",
+      error: "Invalid time format. Use HH, HH:MM, or HH.MM, e.g., 11 CET, 7:22, or 7.22pm",
     };
   }
 
@@ -237,17 +227,9 @@ function getUtcOffsetMinutes(ianaId: string, date: Date): number {
   const tzParts = getDateParts(date, ianaId);
 
   const utcMinutes =
-    utcParts.year * 525960 +
-    utcParts.month * 43800 +
-    utcParts.day * 1440 +
-    utcParts.hour * 60 +
-    utcParts.minute;
+    utcParts.year * 525960 + utcParts.month * 43800 + utcParts.day * 1440 + utcParts.hour * 60 + utcParts.minute;
   const tzMinutes =
-    tzParts.year * 525960 +
-    tzParts.month * 43800 +
-    tzParts.day * 1440 +
-    tzParts.hour * 60 +
-    tzParts.minute;
+    tzParts.year * 525960 + tzParts.month * 43800 + tzParts.day * 1440 + tzParts.hour * 60 + tzParts.minute;
 
   return tzMinutes - utcMinutes;
 }
@@ -334,17 +316,7 @@ export function convertTime(
 
   // 1. Create a reference date: today at the given time in UTC
   const now = new Date();
-  const refDate = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      hours,
-      minutes,
-      0,
-      0,
-    ),
-  );
+  const refDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), hours, minutes, 0, 0));
 
   // 2. Find the source timezone's UTC offset
   const sourceOffset = getUtcOffsetMinutes(sourceIana, refDate);
@@ -385,10 +357,7 @@ export function convertTime(
  * Build the ordered list of target timezones for conversion.
  * Order: local, explicit target, favorites (deduplicated).
  */
-export function getTargetTimezones(
-  parsed: ParsedQuery,
-  favoriteSetting: string,
-): { ianaId: string; label?: string }[] {
+export function getTargetTimezones(parsed: ParsedQuery, favoriteSetting: string): { ianaId: string; label?: string }[] {
   const localIana = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const seen = new Set<string>();
   const targets: { ianaId: string; label?: string }[] = [];
