@@ -83,7 +83,7 @@ export function getDisambiguationLabel(
 
 // ── Query Parsing ──────────────────────────────────────────────
 
-const TIME_RE = /^(\d{1,2})[:.](\d{2})\s*(am|pm)?/i;
+const TIME_RE = /^(\d{1,2})(?:[:.](\d{2}))?\s*(am|pm)?/i;
 const TO_RE = /\bto\b/i;
 
 export function parseQuery(query: string): ParsedQuery {
@@ -108,12 +108,12 @@ export function parseQuery(query: string): ParsedQuery {
       minutes: 0,
       sourceTimezone: "",
       sourceLabel: "",
-      error: "Invalid time format. Use HH:MM or HH.MM, e.g., 7:22 or 7.22pm",
+      error: "Invalid time format. Use HH, HH:MM, or HH.MM, e.g., 11 CET, 7:22, or 7.22pm",
     };
   }
 
   let hours = parseInt(timeMatch[1], 10);
-  const minutes = parseInt(timeMatch[2], 10);
+  const minutes = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
   const ampm = timeMatch[3]?.toLowerCase();
 
   // Validate ranges
