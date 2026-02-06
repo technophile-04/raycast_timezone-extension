@@ -3,7 +3,7 @@
   "name": "timezone-converter",
   "title": "Timezone Converter",
   "description": "Convert times between timezones instantly. Type a time and timezone to see it in your local time.",
-  "icon": "extension-icon.png",
+  "icon": "icon.png",
   "author": "shivbhonde",
   "categories": [
     "Productivity"
