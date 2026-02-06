@@ -14,15 +14,7 @@
       "name": "convert-time",
       "title": "Convert Time",
       "description": "Convert a time from one timezone to your local timezone and favorites",
-      "mode": "view",
-      "arguments": [
-        {
-          "name": "query",
-          "type": "text",
-          "placeholder": "7:22 CET or 7:22 CET to PST",
-          "required": true
-        }
-      ]
+      "mode": "view"
     }
   ],
   "preferences": [
